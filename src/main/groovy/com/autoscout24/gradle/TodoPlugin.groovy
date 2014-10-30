@@ -28,8 +28,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaBasePlugin
 
-import java.util.regex.Pattern
-
 class TodoPlugin implements Plugin<Project> {
 
 
@@ -46,7 +44,7 @@ class TodoPlugin implements Plugin<Project> {
     void applyTasks(final Project project) {
 
         TodoTask cocoapodsCheckTask = project.tasks.create("checkTodo", TodoTask)
-        cocoapodsCheckTask.group =  JavaBasePlugin.VERIFICATION_GROUP
+        cocoapodsCheckTask.group = JavaBasePlugin.VERIFICATION_GROUP
         cocoapodsCheckTask.description = "Check for TODOs."
         cocoapodsCheckTask.outputs.upToDateWhen { false }
 

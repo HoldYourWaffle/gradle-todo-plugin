@@ -27,7 +27,7 @@ package com.autoscout24.gradle
 import org.gradle.api.Project
 
 class TodoPluginExtension {
-    
+
     def Boolean teamCityLog = false
     def String todoSuffixPattern = null
     def Boolean failIfFound = false
