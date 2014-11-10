@@ -29,8 +29,11 @@ import org.gradle.api.Project
 class TodoPluginExtension {
 
     def Boolean teamCityLog = false
+    def String todoPattern = "//[\\t\\s]*TODO(.*)"
     def String todoSuffixPattern = null
     def Boolean failIfFound = false
+    def String sourceFolder = "src"
+    def Collection<String> fileExtensions = ["java", "groovy"]
 
     private final Project project
 

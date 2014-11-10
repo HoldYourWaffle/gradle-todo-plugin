@@ -24,6 +24,7 @@
 
 package com.autoscout24.gradle
 
+import org.apache.commons.io.FilenameUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleScriptException
 import org.gradle.api.tasks.TaskAction
@@ -44,9 +45,15 @@ class TodoTask extends DefaultTask {
 
         int numberOfTodosFound = 0
 
-        new File('src').eachFileRecurse { file ->
+        String sourceFolder = project.todo.sourceFolder
+
+        new File(sourceFolder).eachFileRecurse { file ->
+
             String name = file.getName()
-            if (name.endsWith(".java") || name.endsWith(".groovy")) {
+
+            String extension = FilenameUtils.getExtension(name)
+
+            if (extension != null && project.todo.fileExtensions.contains(extension)) {
 
                 BufferedReader reader = new BufferedReader(new FileReader(file))
 
@@ -87,7 +94,7 @@ class TodoTask extends DefaultTask {
 
     Pattern getTodoPattern() {
         if (todoPattern == null) {
-            String pattern = "//[\\t\\s]*TODO(.*)"
+            String pattern = project.todo.todoPattern
             String todoSuffixPattern = project.todo.todoSuffixPattern
             if (todoSuffixPattern) {
                 pattern = pattern + todoSuffixPattern
