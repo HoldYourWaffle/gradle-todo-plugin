@@ -1,4 +1,4 @@
-# gradle-todo-plugin [![Build Status](https://travis-ci.org/AutoScout24/gradle-todo-plugin.png)](https://travis-ci.org/AutoScout24/gradle-todo-plugin)
+# gradle-todo-plugin [![Build Status](https://travis-ci.org/AutoScout24/gradle-todo-plugin.png)](https://travis-ci.org/AutoScout24/gradle-todo-plugin) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.autoscout24.gradle/gradle-todo-plugin/badge.svg)](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.autoscout24.gradle%22%20AND%20a%3A%22gradle-todo-plugin%22) [![License MIT](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/AutoScout24/gradle-todo-plugin/blob/master/LICENSE)
 
 A Gradle plugin for finding // TODO comments.
 
