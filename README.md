@@ -12,11 +12,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.autoscout24.gradle:gradle-todo-plugin:0.1.0'
+        classpath 'com.autoscout24.gradle:gradle-todo-plugin:1.0'
     }
 }
 
-apply plugin: 'todo'
+apply plugin: 'com.autoscout24.gradle.todo'
 ```
 
 ## Advanced usage

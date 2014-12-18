@@ -32,28 +32,21 @@ class TodoPlugin implements Plugin<Project> {
 
 
     void apply(Project project) {
-        configureDependencies(project)
         applyExtensions(project)
         applyTasks(project)
     }
 
-    void applyExtensions(final Project project) {
+    static void applyExtensions(final Project project) {
         project.extensions.create('todo', TodoPluginExtension, project)
     }
 
-    void applyTasks(final Project project) {
+    static void applyTasks(final Project project) {
 
         TodoTask cocoapodsCheckTask = project.tasks.create("checkTodo", TodoTask)
         cocoapodsCheckTask.group = JavaBasePlugin.VERIFICATION_GROUP
         cocoapodsCheckTask.description = "Check for TODOs."
         cocoapodsCheckTask.outputs.upToDateWhen { false }
 
-    }
-
-    void configureDependencies(final Project project) {
-        project.repositories {
-            mavenCentral()
-        }
     }
 
 }
