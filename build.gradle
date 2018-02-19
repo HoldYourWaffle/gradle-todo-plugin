@@ -1,26 +1,30 @@
 buildscript {
-   repositories {
-      mavenCentral()
-   }
-   dependencies {
-    classpath 'com.github.townsfolk:gradle-release:1.2'
-	classpath 'commons-io:commons-io:2.0.1'
-   }
+	repositories {
+		mavenCentral()
+		
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	
+	dependencies {
+		classpath 'com.github.townsfolk:gradle-release:1.2'
+		classpath "com.gradle.publish:plugin-publish-plugin:0.9.8"
+		classpath 'commons-io:commons-io:2.0.1'
+	}
 }
 
+apply plugin: "com.gradle.plugin-publish"
 apply plugin: 'groovy'
-apply plugin: 'idea'
-apply plugin: 'maven'
-apply plugin: 'signing'
-apply plugin: 'release'
 
-group = 'com.autoscout24.gradle'
-
+group = 'info.zthings.gradletodo'
+version = '1.0'
 ext.archivesBaseName = 'gradle-todo-plugin'
 ext.isSnapshot = version.endsWith("-SNAPSHOT")
 
 repositories {
-    mavenCentral()
+	mavenCentral()
+	jcenter()
 }
 
 dependencies {
@@ -28,6 +32,20 @@ dependencies {
     compile gradleApi()
     compile 'de.felixschulze.teamcity:teamcity-status-message-helper:1.0.2'
 	compile 'commons-io:commons-io:2.0.1'
+}
+
+pluginBundle {
+	website = 'http://www.zthings.info/'
+	vcsUrl = 'https://github.com/HoldYourWaffle/gradle-todo-plugin'
+	description = 'Gradle plugin to search for TODO tags [Forked from Felix Schulze]'
+	tags = ['todo', 'check']
+
+	plugins {
+		todoPlugin {
+			id = 'info.zthings.gradletodo'
+			displayName = 'Gradle TODO plugin'
+		}
+	}
 }
 
 task sourceJar(type: Jar) {
@@ -44,74 +62,4 @@ task groovydocJar(type: Jar) {
 
 artifacts {
     archives groovydocJar, sourceJar
-}
-
-signing {
-    sign configurations.archives
-}
-
-// Only *require* signing if we are uploading a non snapshot version
-gradle.taskGraph.whenReady { taskGraph ->
-    tasks.withType(org.gradle.plugins.signing.Sign).all {
-        required = taskGraph.hasTask(":uploadArchives") && !isSnapshot
-    }
-}
-
-
-install.repositories.mavenInstaller {
-    pom.project(pomConfiguration)
-    if (signing.signatory) {
-        beforeDeployment { signing.signPom(it) }
-    }
-}
-
-uploadArchives {
-    repositories.mavenDeployer {
-        if (signing.signatory) {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-        }
-        name = 'mavenCentralReleaseDeployer'
-        repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-            authentication(userName: System.properties['sonatypeUsername'], password: System.properties['sonatypePassword'])
-            releases(updatePolicy: 'always')
-            snapshots(updatePolicy: 'always')
-        }
-        pom.project(pomConfiguration)
-    }
-}
-
-release {
-	createReleaseTag.dependsOn uploadArchives
-}
-
-
-/**v
- * Create POM config and return for use by other tasks.
- */
-def getPomConfiguration() {
-    return {
-        name 'Gradle Todo Plugin'
-        packaging 'jar'
-        description 'A Gradle plugin for finding // TODO comments.'
-        url 'https://github.com/AutoScout24/gradle-todo-plugin'
-        licenses {
-            license {
-                name 'The MIT License'
-                url 'http://www.opensource.org/licenses/mit-license.php'
-                distribution 'repo'
-            }
-        }
-        developers {
-            developer {
-                id 'x2on'
-                name 'Felix Schulze'
-                email 'code@felixschulze.de'
-            }
-        }
-        scm {
-            connection 'scm:https://x2on@github.com/AutoScout24/gradle-todo-plugin'
-            developerConnection 'scm:git@github.com:AutoScout24/gradle-todo-plugin.git'
-            url 'https://github.com/AutoScout24/gradle-todo-plugin'
-        }
-    }
 }
