@@ -1,29 +1,15 @@
-# gradle-todo-plugin [![Build Status](https://travis-ci.org/AutoScout24/gradle-todo-plugin.png)](https://travis-ci.org/AutoScout24/gradle-todo-plugin) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.autoscout24.gradle/gradle-todo-plugin/badge.svg)](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.autoscout24.gradle%22%20AND%20a%3A%22gradle-todo-plugin%22) [![License MIT](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/AutoScout24/gradle-todo-plugin/blob/master/LICENSE)
+# gradle-todo-plugin (fixed)
 
-A Gradle plugin for finding // TODO comments.
+A Gradle plugin for finding // TODO comments, originally by [Felix Schulze](https://github.com/x2on) and fixed by [me](https://github.com/HoldYourWaffle).
 
-## Basic usage
+## Use in your project
 
-Add to your build.gradle
+This plugin is available through the [gradle plugin portal](https://plugins.gradle.org/plugin/info.zthings.gradletodo).
 
-```gradle
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.autoscout24.gradle:gradle-todo-plugin:1.0'
-    }
-}
-
-apply plugin: 'com.autoscout24.gradle.todo'
-```
-
-## Advanced usage
-
-Add to your build.gradle
+## Configuration
 
 ```gradle
+//Default configuration
 todo {
     teamCityLog = true
     todoPattern = "//[\t\s]*TODO(.*)"
@@ -43,7 +29,7 @@ todo {
 
 ## Changelog
 
-[Releases](https://github.com/AutoScout24/gradle-todo-plugin/releases)
+F-1.0: Fixed upstream issues. ([#3](https://github.com/AutoScout24/gradle-todo-plugin/issues/3) and a part of both [#1](https://github.com/AutoScout24/gradle-todo-plugin/issues/1) and [#2](https://github.com/AutoScout24/gradle-todo-plugin/issues/2))
 
 ## License
 
